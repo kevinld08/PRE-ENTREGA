@@ -2,20 +2,24 @@ import { useState, useEffect } from 'react';
 import ProdCarrito from '../src/Component/ProdCarrito'; 
 import Carrito from '../src/Component/carrito';
 
- 
-
 function Electronica() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
+  
   const addToCart = (product) => {
-    setCart(prev => [...prev, product]);
+    const newProduct = {
+      product: product, 
+      uniqueId: `${product.id}-${Date.now()}`, 
+    };
+    setCart(prev => [...prev, newProduct]); 
   };
 
   const removeFromCart = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id));
+    setCart(prev => prev.filter(item => item.uniqueId !== id)); 
   };
 
+  
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/category/electronics")
       .then(res => res.json())
@@ -26,7 +30,6 @@ function Electronica() {
   }, []);
 
   return (
-     
     <div style={{ display: 'flex', gap: '20px', padding: '20px' }}>
       <div className="product-list">
         {products.map(product => (
@@ -37,4 +40,5 @@ function Electronica() {
     </div>
   );
 }
+
 export default Electronica;

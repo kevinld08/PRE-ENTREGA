@@ -8,13 +8,26 @@ function Carrito({ cartItems, removeFromCart }) {
         <ul>
           {cartItems.map((item) => (
             <li key={item.uniqueId}>
-              {item.product.title} - ${item.product.price}
-              <button
-                style={{ marginLeft: '10px', color: 'white', background: 'red', border: 'none', padding: '5px' }}
-                onClick={() => removeFromCart(item.uniqueId)}
-              >
-                Eliminar
-              </button>
+             
+              {item.product ? (
+                <>
+                  {item.product.title} - ${item.product.price}
+                  <button
+                    style={{
+                      marginLeft: '10px',
+                      color: 'white',
+                      background: 'red',
+                      border: 'none',
+                      padding: '5px',
+                    }}
+                    onClick={() => removeFromCart(item.uniqueId)}
+                  >
+                    Eliminar
+                  </button>
+                </>
+              ) : (
+                <p>Producto no disponible</p> 
+              )}
             </li>
           ))}
         </ul>
